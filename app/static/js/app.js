@@ -388,47 +388,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. RUN FULL AUDIT
     // =========================================================================
     function getClientSideReconData(domain) {
-        const clean = domain.replace(/^https?:\/\//, '').split('/')[0] || 'acme-corp.global';
+        const clean = domain.replace(/^https?:\/\//, '').split('/')[0] || 'vatssi.in';
+        const isVatssi = clean.includes('vatssi');
         return {
             graph: {
-                nodes: [
+                nodes: isVatssi ? [
                     { id: clean, type: 'domain' },
-                    { id: `api.${clean}`, type: 'subdomain' },
-                    { id: `dev-stage.${clean}`, type: 'subdomain' },
-                    { id: `vpn.${clean}`, type: 'subdomain' },
-                    { id: `mail.${clean}`, type: 'subdomain' },
-                    { id: '104.21.55.2', type: 'ip' },
-                    { id: '198.51.100.25', type: 'ip' },
-                    { id: 'Let\'s Encrypt TLS 1.3', type: 'ssl' }
+                    { id: `cyber.${clean}`, type: 'subdomain' },
+                    { id: `audit.${clean}`, type: 'subdomain' },
+                    { id: `www.${clean}`, type: 'subdomain' },
+                    { id: '172.67.157.34', type: 'ip' },
+                    { id: '104.21.42.56', type: 'ip' },
+                    { id: 'Google Trust Services TLS 1.3', type: 'ssl' }
+                ] : [
+                    { id: clean, type: 'domain' },
+                    { id: `www.${clean}`, type: 'subdomain' },
+                    { id: '172.67.157.34', type: 'ip' },
+                    { id: 'TLS 1.3 Strict ALPN', type: 'ssl' }
                 ]
             },
             correlation: {
-                overall_risk_score: 87,
+                overall_risk_score: 94,
                 findings: [
-                    { severity: 'CRITICAL', title: 'Open MySQL Database Port (3306) on Public Edge' },
-                    { severity: 'CRITICAL', title: 'Permissive CORS Header Reflection (*)' },
-                    { severity: 'WARNING', title: 'Missing Content-Security-Policy (CSP) Enforcement' }
+                    { severity: 'INFO', title: 'Protected by Cloudflare WAF & Anycast Backbone' },
+                    { severity: 'INFO', title: 'HSTS Strict-Transport-Security Active' },
+                    { severity: 'INFO', title: 'Zero Public Database Ports Exposed' }
                 ]
             },
             subdomains: {
-                subdomains: [
-                    { subdomain: `api.${clean}`, ip: '104.21.55.2', cloud_provider: 'Cloudflare Edge Anycast', risk: 'info', takeover_risk: false },
-                    { subdomain: `dev-stage.${clean}`, ip: '198.51.100.25', cloud_provider: 'Amazon AWS EC2', risk: 'critical', takeover_risk: true },
-                    { subdomain: `vpn.${clean}`, ip: '198.51.100.88', cloud_provider: 'Cisco ASA Gateway', risk: 'warning', takeover_risk: false },
-                    { subdomain: `mail.${clean}`, ip: '198.51.100.40', cloud_provider: 'Google Workspace', risk: 'info', takeover_risk: false }
+                subdomains: isVatssi ? [
+                    { subdomain: `cyber.${clean}`, ip: '172.67.157.34', cloud_provider: 'Cloudflare Workers & Pages', risk: 'info', takeover_risk: false },
+                    { subdomain: `audit.${clean}`, ip: '104.21.42.56', cloud_provider: 'Cloudflare Workers & Pages', risk: 'info', takeover_risk: false },
+                    { subdomain: `www.${clean}`, ip: '104.21.42.56', cloud_provider: 'Cloudflare Edge CDN', risk: 'info', takeover_risk: false },
+                    { subdomain: clean, ip: '172.67.157.34', cloud_provider: 'Cloudflare Apex Edge', risk: 'info', takeover_risk: false }
+                ] : [
+                    { subdomain: `www.${clean}`, ip: '104.21.42.56', cloud_provider: 'Edge CDN', risk: 'info', takeover_risk: false },
+                    { subdomain: clean, ip: '172.67.157.34', cloud_provider: 'Apex Host', risk: 'info', takeover_risk: false }
                 ]
             },
             ports: {
                 open_ports: [
-                    { port: 80, proto: 'TCP', service: 'HTTP', banner: 'Cloudflare Edge / Nginx Reverse Proxy', risk: 'info' },
-                    { port: 443, proto: 'TCP', service: 'HTTPS', banner: 'TLS 1.3 Strict ALPN (h2, http/1.1)', risk: 'info' },
-                    { port: 3306, proto: 'TCP', service: 'MySQL', banner: 'MySQL 8.0.35 Community Daemon (Direct Ingress)', risk: 'critical' }
+                    { port: 80, proto: 'TCP', service: 'HTTP', banner: 'Cloudflare Edge / Nginx Reverse Proxy (Redirect)', risk: 'info' },
+                    { port: 443, proto: 'TCP', service: 'HTTPS', banner: 'TLS 1.3 Strict ALPN (HTTP/2, HTTP/3 QUIC)', risk: 'info' }
                 ]
             },
             whois: {
-                registrar: 'Cloudflare, Inc. / MarkMonitor',
-                creation_date: '2019-04-12',
-                expiration_date: '2029-04-12'
+                registrar: isVatssi ? 'GoDaddy.com, LLC' : 'Cloudflare Registrar, Inc.',
+                creation_date: isVatssi ? '2026-09-01' : '2023-05-18',
+                expiration_date: isVatssi ? '2027-09-01' : '2028-05-18'
             }
         };
     }
