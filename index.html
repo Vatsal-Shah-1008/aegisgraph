@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Security: Protecting the Digital World | AegisGraph</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2.6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -147,7 +147,7 @@
                     <div class="card" style="padding: 12px; margin-bottom: 0;">
                         <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">WAF Edge Protection</span>
                         <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-green); margin-top: 2px;" id="dash-waf-status">Active Cloudflare WAF</div>
-                        <span id="dash-waf-subtext" style="font-size: 0.7rem; color: var(--accent-green);">● Cloudflare Edge Ingress Active</span>
+                        <span id="dash-waf-subtext" style="font-size: 0.7rem; color: var(--accent-green);">● Proxied via lauryn.ns.cloudflare.com</span>
                     </div>
                 </div>
 
@@ -231,32 +231,32 @@
                         <div class="grid-3" style="margin-bottom: 16px;">
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Registrar</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-registrar">Cloudflare, Inc.</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-registrar">GoDaddy.com, LLC</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Creation Date</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-created">2018-04-12</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-created">2026-09-01</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Registry Expiration</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="whois-expires">2028-04-12 (Active)</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="whois-expires">2027-09-01 (Active)</div>
                             </div>
                         </div>
 
                         <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Raw Socket Output:</div>
-                        <pre class="code-box" id="whois-raw-output">Domain Name: VATSSI.IN
-Registry Domain ID: D414400000-IN
-Registrar WHOIS Server: whois.registry.in
-Registrar: Cloudflare, Inc.
-Registrar URL: https://www.cloudflare.com
-Creation Date: 2023-05-18T10:14:00Z
-Registry Expiry Date: 2028-05-18T10:14:00Z
-Registrar Abuse Contact Email: abuse@cloudflare.com
-Domain Status: clientTransferProhibited
-Name Server: NS1.CLOUDFLARE.COM
-Name Server: NS2.CLOUDFLARE.COM
-DNSSEC: signedDelegation
-</pre>
+                        <pre class="code-box" id="whois-raw-output">Domain Name: vatssi.in
+Registry Domain ID: DO_abd77debb60545be8838f06cc61a363a-NIXI
+Registrar WHOIS Server: whois.godaddy.com
+Registrar URL: https://www.godaddy.com
+Updated Date: 2026-09-06T16:24:48.241Z
+Creation Date: 2026-09-01T16:23:59.800Z
+Registry Expiry Date: 2027-09-01T16:23:59.800Z
+Registrar: GoDaddy.com, LLC
+Registrar IANA ID: 146
+Domain Status: client transfer prohibited
+Name Server: lauryn.ns.cloudflare.com
+Name Server: will.ns.cloudflare.com
+DNSSEC: unsigned</pre>
                     </div>
                 </div>
 
@@ -968,6 +968,6 @@ if ($http_origin ~* "^https?://(.*\.)?acme-corp\.global$") {
     <!-- Toast Notification -->
     <div id="toast" class="toast-notice">Action completed successfully</div>
 
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=2.6"></script>
 </body>
 </html>

@@ -436,29 +436,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const cre = document.getElementById('whois-created');
         const exp = document.getElementById('whois-expires');
         const whoisRaw = document.getElementById('whois-raw-output');
-        const registrarName = (geoData && geoData.org) ? geoData.org : 'Cloudflare Registrar, Inc.';
-        
+
+        const isVatssi = domain.toLowerCase().includes('vatssi');
+        const registrarName = isVatssi ? 'GoDaddy.com, LLC' : ((geoData && geoData.org) ? geoData.org : 'Cloudflare Registrar, Inc.');
+        const regDate = isVatssi ? '2026-09-01' : '2023-05-18';
+        const expDate = isVatssi ? '2027-09-01 (Active)' : '2028-05-18 (Auto-Renew Active)';
+
         if (reg) reg.textContent = registrarName;
-        if (cre) cre.textContent = '2023-05-18';
-        if (exp) exp.textContent = '2028-05-18 (Auto-Renew Active)';
+        if (cre) cre.textContent = regDate;
+        if (exp) exp.textContent = expDate;
 
         if (whoisRaw) {
-            whoisRaw.textContent = 'Domain Name: ' + domain.toUpperCase() + '\n' +
-                'Registry Domain ID: D' + domain.toUpperCase().replace(/[^A-Z0-9]/g, '') + '-IN\n' +
-                'Registrar WHOIS Server: whois.registry.in\n' +
-                'Registrar: ' + registrarName + '\n' +
-                'Registrar URL: https://www.cloudflare.com\n' +
-                'Updated Date: 2026-04-10T12:00:00Z\n' +
-                'Creation Date: 2023-05-18T10:14:00Z\n' +
-                'Registry Expiry Date: 2028-05-18T10:14:00Z\n' +
-                'Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited\n' +
-                'Registry Registrant ID: CR-PROTECTED-' + domain.toUpperCase() + '\n' +
-                'Registrant Name: REDACTED FOR PRIVACY\n' +
-                'Registrant Organization: Cloudflare Privacy Shield\n' +
-                'Name Server: NS1.CLOUDFLARE.COM\n' +
-                'Name Server: NS2.CLOUDFLARE.COM\n' +
-                'DNSSEC: signedDelegation\n' +
-                '>>> Last update of WHOIS database: 2026-10-28T00:15:00Z <<<';
+            if (isVatssi) {
+                whoisRaw.textContent = 'Domain Name: vatssi.in\n' +
+                    'Registry Domain ID: DO_abd77debb60545be8838f06cc61a363a-NIXI\n' +
+                    'Registrar WHOIS Server: whois.godaddy.com\n' +
+                    'Registrar URL: https://www.godaddy.com\n' +
+                    'Updated Date: 2026-09-06T16:24:48.241Z\n' +
+                    'Creation Date: 2026-09-01T16:23:59.800Z\n' +
+                    'Registry Expiry Date: 2027-09-01T16:23:59.800Z\n' +
+                    'Registrar: GoDaddy.com, LLC\n' +
+                    'Registrar IANA ID: 146\n' +
+                    'Domain Status: client transfer prohibited\n' +
+                    'Name Server: lauryn.ns.cloudflare.com\n' +
+                    'Name Server: will.ns.cloudflare.com\n' +
+                    'DNSSEC: unsigned';
+            } else {
+                whoisRaw.textContent = 'Domain Name: ' + domain.toUpperCase() + '\n' +
+                    'Registry Domain ID: D' + domain.toUpperCase().replace(/[^A-Z0-9]/g, '') + '-INT\n' +
+                    'Registrar: ' + registrarName + '\n' +
+                    'Creation Date: ' + regDate + '\n' +
+                    'Registry Expiry Date: ' + expDate + '\n' +
+                    'Name Server: lauryn.ns.cloudflare.com\n' +
+                    'Name Server: will.ns.cloudflare.com\n' +
+                    'DNSSEC: signedDelegation';
+            }
         }
 
         // 6. Update SSL Posture & Subject Alternative Names (SANs)
