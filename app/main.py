@@ -27,9 +27,19 @@ app.add_middleware(
 app.include_router(recon.router)
 app.include_router(ai_copilot.router)
 
-# Static Files Path
+# Static Files Path (Supports both local FastAPI and Cloudflare Pages static hosting)
 current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.dirname(current_dir)
 static_dir = os.path.join(current_dir, "static")
+
+css_dir = os.path.join(root_dir, "css") if os.path.exists(os.path.join(root_dir, "css")) else os.path.join(static_dir, "css")
+js_dir = os.path.join(root_dir, "js") if os.path.exists(os.path.join(root_dir, "js")) else os.path.join(static_dir, "js")
+
+if os.path.exists(css_dir):
+    app.mount("/css", StaticFiles(directory=css_dir), name="css")
+
+if os.path.exists(js_dir):
+    app.mount("/js", StaticFiles(directory=js_dir), name="js")
 
 if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
@@ -45,9 +55,12 @@ def healthcheck():
 
 @app.get("/")
 def serve_dashboard():
-    index_file = os.path.join(static_dir, "index.html")
-    if os.path.exists(index_file):
-        return FileResponse(index_file)
+    root_index = os.path.join(root_dir, "index.html")
+    if os.path.exists(root_index):
+        return FileResponse(root_index)
+    static_index = os.path.join(static_dir, "index.html")
+    if os.path.exists(static_index):
+        return FileResponse(static_index)
     return {"message": f"{settings.APP_NAME} API is running. Visit /docs for OpenAPI specs."}
 
 if __name__ == "__main__":
