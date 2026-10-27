@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Security: Protecting the Digital World | AegisGraph</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- =====================================================================
+         1. SIDEBAR NAVIGATION: EXACTLY 4 CLEAN OPTIONS
+         ===================================================================== -->
+    <aside class="sidebar">
+        <div class="logo-box">
+            <div class="logo-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+            </div>
+            <div class="logo-text-group">
+                <span class="logo-title">AegisGraph</span>
+                <span class="logo-subtitle">Cyber Security Console</span>
+            </div>
+            <button class="btn-sidebar-close" id="btn-sidebar-close" aria-label="Close sidebar">✕</button>
+        </div>
+
+        <ul class="nav-list">
+            <div class="nav-section-label">MAIN MODULES</div>
+            
+            <li class="nav-item active" data-category="recon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span>1. Core Reconnaissance</span>
+            </li>
+
+            <li class="nav-item" data-category="threatintel">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                <span>2. Threat Intel & OSINT</span>
+            </li>
+
+            <li class="nav-item" data-category="scanning">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                <span>3. Scanning & Vulnerability</span>
+            </li>
+
+            <li class="nav-item" data-category="crypto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>4. Cryptography & Utilities</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Mobile Off-Canvas Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- =====================================================================
+         2. MAIN WRAPPER (TOP COMMAND BAR + RIGHT SIDE CONTENT BLOCK)
+         ===================================================================== -->
+    <div class="main-wrapper">
+        
+        <!-- Top Command Bar -->
+        <header class="top-header">
+            <div class="header-top-row">
+                <button class="btn-sidebar-toggle" id="btn-sidebar-toggle" aria-label="Toggle Navigation">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="header-title-box">
+                    <h1 id="page-title">Core Reconnaissance & Attack Surface</h1>
+                    <p id="page-desc">Protecting the Digital World from Threats &bull; Presented by Vatsal Shah - 2026</p>
+                </div>
+            </div>
+
+            <!-- Global Target Input Bar -->
+            <div class="global-target-bar">
+                <div class="target-input-group">
+                    <svg class="target-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <input type="text" id="target-input" class="target-input-box" value="acme-corp.global" placeholder="Enter target domain or IP (e.g. acme-corp.global)">
+                </div>
+                <button class="btn-primary" id="btn-run-all">⚡ Scan Target</button>
+                <button class="btn-secondary" id="btn-export-md">📄 Export Dossier</button>
+                <button class="btn-secondary theme-toggle-btn" id="btn-theme-toggle" title="Switch Theme">
+                    <span id="theme-icon">🎨</span> <span id="theme-label">Presentation</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sub-Bar Telemetry -->
+        <div class="sub-bar">
+            <div class="telemetry-status-box">
+                <span class="dot-online"></span>
+                <span style="color: var(--text-secondary); font-size: 0.74rem; font-weight: 500;">Perimeter OSINT Telemetry Active</span>
+            </div>
+
+            <div class="kpi-pills">
+                <div class="kpi-pill">
+                    <span style="color: var(--text-muted);">Assets:</span>
+                    <strong style="color: var(--accent-cyan);" id="kpi-assets">9 Entities</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span style="color: var(--text-muted);">Exposures:</span>
+                    <strong style="color: var(--accent-red);" id="kpi-crits">2 Vulnerabilities</strong>
+                </div>
+                <div class="kpi-pill">
+                    <span style="color: var(--text-muted);">Risk Score:</span>
+                    <strong style="color: var(--accent-amber);" id="kpi-score">87/100</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Content Area: Displays active Category and its Sub-parts -->
+        <div class="content-area">
+
+            <!-- ============================================================= -->
+            <!-- 1. CORE RECONNAISSANCE VIEW (WITH SUB-PARTS DISPLAYED IN RIGHT)-->
+            <!-- ============================================================= -->
+            <section id="category-recon" class="category-view active-view">
+
+                <!-- Executive Threat Posture Banner -->
+                <div class="grid-4" style="margin-bottom: 16px;">
+                    <div class="card" style="padding: 12px; margin-bottom: 0;">
+                        <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Perimeter Subdomains</span>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 2px;" id="dash-subs-count">4 Hosts</div>
+                        <span style="font-size: 0.7rem; color: var(--accent-green);">● Authoritative DNS</span>
+                    </div>
+                    <div class="card" style="padding: 12px; margin-bottom: 0;">
+                        <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Public TCP Ports</span>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 2px;" id="dash-ports-count">2 Open</div>
+                        <span style="font-size: 0.7rem; color: var(--accent-red);">● 1 Database Port (3306)</span>
+                    </div>
+                    <div class="card" style="padding: 12px; margin-bottom: 0;">
+                        <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">SSL / TLS Encryption</span>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-cyan); margin-top: 2px;" id="dash-ssl-status">Valid TLS 1.3</div>
+                        <span style="font-size: 0.7rem; color: var(--accent-amber);">● Missing CSP & X-Frame</span>
+                    </div>
+                    <div class="card" style="padding: 12px; margin-bottom: 0;">
+                        <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">WAF Edge Protection</span>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-red); margin-top: 2px;" id="dash-waf-status">Unprotected</div>
+                        <span style="font-size: 0.7rem; color: var(--text-muted);">Direct Origin IP Ingress</span>
+                    </div>
+                </div>
+
+                <!-- Sub-Parts Navigation in Right Block -->
+                <div class="subparts-nav" data-category="recon">
+                    <button class="subpart-tab active-subpart" data-subpart="dns">🌐 DNS & IP Lookup</button>
+                    <button class="subpart-tab" data-subpart="whois">📜 WHOIS Domain Intel</button>
+                    <button class="subpart-tab" data-subpart="subdomains">🔭 Subdomain Enumeration</button>
+                    <button class="subpart-tab" data-subpart="ipgeo">🗺️ IP Geo & ASN Lookup</button>
+                    <button class="subpart-tab" data-subpart="ssl">🔒 Headers & SSL Analyzer</button>
+                </div>
+
+                <!-- Sub-Part 1.1: DNS & IP Lookup -->
+                <div class="subpart-panel active-panel" id="subpanel-dns">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">DNS Records & Authoritative Nameserver Resolution</div>
+                                <div class="card-desc">Resolves A, AAAA, MX, NS, and TXT records paired with IP geolocation data</div>
+                            </div>
+                            <button class="btn-primary" id="btn-run-dns-module">🔄 Resolve DNS Records</button>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>Record Type</th>
+                                        <th>Host / Subdomain</th>
+                                        <th>Resolved Value</th>
+                                        <th>TTL</th>
+                                        <th>Security Finding</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-dns-body">
+                                    <tr>
+                                        <td><span class="badge badge-info">A</span></td>
+                                        <td>acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">198.51.100.25</td>
+                                        <td>300</td>
+                                        <td><span class="badge badge-success">OK</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">CNAME</span></td>
+                                        <td>docs.acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">acme-docs-storage.s3.amazonaws.com</td>
+                                        <td>300</td>
+                                        <td><span class="badge badge-danger">DANGLING TAKEOVER</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">MX</span></td>
+                                        <td>acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">mail.acme-corp.global (Priority 10)</td>
+                                        <td>3600</td>
+                                        <td><span class="badge badge-success">VALID</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">TXT</span></td>
+                                        <td>acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">v=spf1 include:_spf.google.com ~all</td>
+                                        <td>3600</td>
+                                        <td><span class="badge badge-warning">SOFTFAIL SPF</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 1.2: WHOIS Domain Intel -->
+                <div class="subpart-panel" id="subpanel-whois">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Authoritative Registry WHOIS Intel</div>
+                                <div class="card-desc">Extracts domain registration records, registrar details, and creation/expiration timestamps</div>
+                            </div>
+                            <button class="btn-primary" id="btn-run-whois-module">📜 Query WHOIS</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Registrar</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-registrar">MarkMonitor, Inc.</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Creation Date</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-created">2018-04-12</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Registry Expiration</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="whois-expires">2028-04-12 (Active)</div>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Raw Socket Output:</div>
+                        <pre class="code-box">Domain Name: ACME-CORP.GLOBAL
+Registry Domain ID: D12345678-GLOBAL
+Registrar WHOIS Server: whois.markmonitor.com
+Updated Date: 2026-03-10T12:00:00Z
+Creation Date: 2018-04-12T00:00:00Z
+Registry Expiry Date: 2028-04-12T00:00:00Z
+Registrar: MarkMonitor, Inc.
+Name Server: NS1.ACME-CORP.GLOBAL
+Name Server: NS2.ACME-CORP.GLOBAL
+DNSSEC: unsigned</pre>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 1.3: Subdomain Enumeration -->
+                <div class="subpart-panel" id="subpanel-subdomains">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Perimeter Subdomain Enumeration (crt.sh & CT Logs)</div>
+                                <div class="card-desc">Queries public certificate transparency logs to uncover hidden subdomains and assets</div>
+                            </div>
+                            <button class="btn-primary" id="btn-run-subs-module">🔍 Enumerate Subdomains</button>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subdomain Hostname</th>
+                                        <th>IP Resolution</th>
+                                        <th>Hosting / Provider</th>
+                                        <th>Risk Rating</th>
+                                        <th>Perimeter Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-subdomains-body">
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">api.acme-corp.global</td>
+                                        <td>198.51.100.25</td>
+                                        <td>AWS EC2</td>
+                                        <td><span class="badge badge-info">INFO</span></td>
+                                        <td>Active</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">dev-stage.acme-corp.global</td>
+                                        <td>198.51.100.88</td>
+                                        <td>DigitalOcean VPS</td>
+                                        <td><span class="badge badge-warning">MEDIUM</span></td>
+                                        <td>Exposed MySQL 3306</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">docs.acme-corp.global</td>
+                                        <td>AWS S3 CNAME</td>
+                                        <td>Amazon AWS</td>
+                                        <td><span class="badge badge-danger">CRITICAL</span></td>
+                                        <td>Dangling S3 Takeover</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">vpn.acme-corp.global</td>
+                                        <td>198.51.100.30</td>
+                                        <td>Corporate Gateway</td>
+                                        <td><span class="badge badge-warning">MEDIUM</span></td>
+                                        <td>Active Gateway</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 1.4: IP Geo & ASN Lookup -->
+                <div class="subpart-panel" id="subpanel-ipgeo">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">IP Geolocation & Autonomous System Number (ASN) Lookup</div>
+                                <div class="card-desc">Traces public IPs and hostnames to their physical locations, ISPs, and ASNs</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="ipgeo-input" placeholder="Enter IP or Hostname (e.g. 198.51.100.25 or google.com)">
+                            <button class="btn-primary" id="btn-trace-ipgeo">Trace Geolocation</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Physical Location</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="geo-location">Ashburn, Virginia, United States 🇺🇸</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-coords">Lat: 39.0438, Long: -77.4874</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Autonomous System Number (ASN)</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="geo-asn">AS16509 AMAZON-02</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-isp">Amazon Technologies Inc.</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Proxy / Tor / VPN Detection</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="geo-proxy">Direct Datacenter IP</div>
+                                <span class="badge badge-success" style="margin-top: 4px;">NO TOR EXIT DETECTED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 1.5: Headers & SSL Analyzer -->
+                <div class="subpart-panel" id="subpanel-ssl">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">SSL / TLS Cryptanalysis & Security Headers Analyzer</div>
+                                <div class="card-desc">Inspects response headers for missing security controls (CSP, HSTS, X-Frame-Options) and certificate chains</div>
+                            </div>
+                            <button class="btn-primary" id="btn-run-ssl-module">🔒 Inspect SSL & Headers</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Certificate Authority (Issuer)</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="ssl-issuer">Let's Encrypt Authority X3</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Days Until Expiration</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="ssl-days">84 Days Remaining</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Subject Alternative Names (SANs)</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="ssl-sans">*.acme-corp.global, acme-corp.global</div>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">HTTP Security Headers Checklist:</div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;" id="ssl-headers-list">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px;">
+                                <div>
+                                    <strong style="font-size: 0.82rem; color: var(--text-main);">Strict-Transport-Security (HSTS)</strong>
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Enforces HTTPS encrypted transport across all subdomains</div>
+                                </div>
+                                <span class="badge badge-success">ENFORCED (max-age=31536000)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px;">
+                                <div>
+                                    <strong style="font-size: 0.82rem; color: var(--text-main);">Content-Security-Policy (CSP)</strong>
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Restricts scripts and object sources to mitigate Cross-Site Scripting (XSS)</div>
+                                </div>
+                                <span class="badge badge-danger">MISSING (Vulnerable to XSS)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 6px;">
+                                <div>
+                                    <strong style="font-size: 0.82rem; color: var(--text-main);">X-Frame-Options</strong>
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Prevents Clickjacking by disallowing iframe embedding</div>
+                                </div>
+                                <span class="badge badge-danger">MISSING (Clickjacking Risk)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- 2. THREAT INTEL & OSINT VIEW (SUB-PARTS IN RIGHT BLOCK)        -->
+            <!-- ============================================================= -->
+            <section id="category-threatintel" class="category-view">
+
+                <!-- Sub-Parts Navigation in Right Block -->
+                <div class="subparts-nav" data-category="threatintel">
+                    <button class="subpart-tab active-subpart" data-subpart="threatfeed">🎯 Threat Feed / IOC Lookup</button>
+                    <button class="subpart-tab" data-subpart="breach">📧 Email Breach Checker</button>
+                    <button class="subpart-tab" data-subpart="metadata">📷 Metadata Extractor (EXIF)</button>
+                </div>
+
+                <!-- Sub-Part 2.1: Threat Feed / IOC Lookup -->
+                <div class="subpart-panel active-panel" id="subpanel-threatfeed">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Threat Intelligence Feed / IOC Lookup</div>
+                                <div class="card-desc">Checks suspicious IPs, domains, or file hashes against global threat intelligence indicators</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="ioc-input" placeholder="Enter IP, Domain, or MD5/SHA-256 Hash (e.g. 198.51.100.25)">
+                            <button class="btn-primary" id="btn-query-ioc">Query Threat Feeds</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Threat Score</span>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-red); margin-top: 2px;" id="ioc-score">85/100</div>
+                                <span class="badge badge-danger" id="ioc-status-badge">MALICIOUS / SUSPICIOUS</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Threat Classification</span>
+                                <div style="font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="ioc-category">Command & Control / Port Scanner</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="ioc-asn">AS13335 (Cloudflare / Edge)</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Reputation & Blocklist Status</span>
+                                <div style="font-size: 0.78rem; color: var(--text-main); margin-top: 4px;" id="ioc-reputation">Flagged in 4 threat intelligence feeds (AbuseIPDB, Spamhaus SBL)</div>
+                                <span style="font-size: 0.7rem; color: var(--text-muted);" id="ioc-last-seen">Last Activity: 2026-10-27 18:22 UTC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 2.2: Email Breach Checker -->
+                <div class="subpart-panel" id="subpanel-breach">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Email Breach & Identity Exposure Checker</div>
+                                <div class="card-desc">Scans target email addresses or domains against known data breach disclosures</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="breach-input" placeholder="Enter target email or domain (e.g. admin@acme-corp.global or acme-corp.global)">
+                            <button class="btn-primary" id="btn-check-breach">Scan Breach Records</button>
+                        </div>
+
+                        <div style="margin-bottom: 14px;" id="breach-summary-box">
+                            <div style="padding: 12px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px;">
+                                <span style="font-weight: 700; color: var(--accent-red); font-size: 0.85rem;" id="breach-headline">Alert: 1 Verified Breach Found for acme-corp.global</span>
+                                <p style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;" id="breach-desc">
+                                    Compromised customer cloud backup snapshot exposed employee emails, hashed passwords (bcrypt), and internal job titles.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>Breach Name</th>
+                                        <th>Breach Date</th>
+                                        <th>Compromised Accounts</th>
+                                        <th>Exposed Data Classes</th>
+                                        <th>Risk Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-breach-body">
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--text-main);">Acme Corp Customer Cloud Backup Leak</td>
+                                        <td>2024-03-15</td>
+                                        <td>142,000 Accounts</td>
+                                        <td>Emails, Passwords (bcrypt), Full Names, Titles</td>
+                                        <td><span class="badge badge-danger">HIGH RISK</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 2.3: Metadata Extractor (EXIF) -->
+                <div class="subpart-panel" id="subpanel-metadata">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Metadata Extractor (ExifTool Web) & Privacy Stripper</div>
+                                <div class="card-desc">Extracts or strips embedded EXIF metadata (GPS coordinates, camera models, author tags) from files</div>
+                            </div>
+                            <button class="btn-secondary" id="btn-strip-exif">🧹 Strip All Metadata</button>
+                        </div>
+
+                        <div class="dropzone" id="exif-dropzone" style="margin-bottom: 16px;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" style="margin-bottom: 8px;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Drag & drop image or document here to inspect EXIF</div>
+                            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">Supports JPEG, PNG, WebP, PDF. Or click to inspect sample drone surveillance photo</div>
+                            <input type="file" id="exif-file-input" style="display: none;">
+                        </div>
+
+                        <div class="table-container">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>EXIF Tag</th>
+                                        <th>Extracted Value</th>
+                                        <th>Privacy & Intelligence Impact</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-exif-body">
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--text-main);">Camera Make & Model</td>
+                                        <td>Sony Alpha a7R IV (ILCE-7RM4)</td>
+                                        <td>Reveals hardware fingerprint used by surveillance target</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--text-main);">GPS Coordinates (Lat / Long)</td>
+                                        <td style="color: var(--accent-red); font-family: var(--font-mono);">37.7749° N, 122.4194° W (San Francisco, CA)</td>
+                                        <td><span class="badge badge-danger">PHYSICAL LOCATION LEAK</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--text-main);">Date / Time Original</td>
+                                        <td>2026-10-24 14:32:09 UTC</td>
+                                        <td>Exact timestamp of forensic image capture</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600; color: var(--text-main);">Editing Software / Author</td>
+                                        <td>Adobe Photoshop 25.0 (Windows NT) / Admin-Vatsal</td>
+                                        <td>Exposes operating system username and software versions</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- 3. SCANNING & VULNERABILITY VIEW (SUB-PARTS IN RIGHT BLOCK)    -->
+            <!-- ============================================================= -->
+            <section id="category-scanning" class="category-view">
+
+                <!-- Sub-Parts Navigation in Right Block -->
+                <div class="subparts-nav" data-category="scanning">
+                    <button class="subpart-tab active-subpart" data-subpart="ports">🔌 Port Scan & Services</button>
+                    <button class="subpart-tab" data-subpart="robots">🤖 Robots.txt & Sitemap</button>
+                    <button class="subpart-tab" data-subpart="cors">🔀 CORS Misconfiguration</button>
+                    <button class="subpart-tab" data-subpart="cve">🛡️ CVE Vulnerability Lookup</button>
+                </div>
+
+                <!-- Sub-Part 3.1: Port Scan & Services -->
+                <div class="subpart-panel active-panel" id="subpanel-ports">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Port Scanner & Perimeter Service Fingerprinting</div>
+                                <div class="card-desc">Probes target hosts across common or custom ports to identify exposed services and running daemons</div>
+                            </div>
+                            <button class="btn-primary" id="btn-run-ports-module">⚡ Probe Perimeter Sockets</button>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>Port</th>
+                                        <th>Protocol</th>
+                                        <th>Service Name</th>
+                                        <th>Banner Fingerprint</th>
+                                        <th>Exposure Severity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-ports-body">
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">80</td>
+                                        <td>TCP</td>
+                                        <td>HTTP</td>
+                                        <td>nginx/1.18.0 (Ubuntu Linux)</td>
+                                        <td><span class="badge badge-info">INFO</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">443</td>
+                                        <td>TCP</td>
+                                        <td>HTTPS</td>
+                                        <td>nginx/1.18.0 + OpenSSL/1.1.1f</td>
+                                        <td><span class="badge badge-info">INFO</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">3306</td>
+                                        <td>TCP</td>
+                                        <td>MySQL Database</td>
+                                        <td>5.7.35-0ubuntu0.18.04.1</td>
+                                        <td><span class="badge badge-danger">CRITICAL EXPOSURE</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 3.2: Robots.txt & Sitemap Finder -->
+                <div class="subpart-panel" id="subpanel-robots">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Robots.txt & Sitemap Endpoint Extractor</div>
+                                <div class="card-desc">Automatically fetches and parses robots.txt and sitemap.xml to reveal unindexed or administrative paths</div>
+                            </div>
+                            <button class="btn-primary" id="btn-scan-robots">🤖 Scan Robots & Sitemap</button>
+                        </div>
+
+                        <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Disallowed Sensitive Endpoints:</div>
+                        <div class="table-container" style="margin-bottom: 16px;">
+                            <table class="secops-table">
+                                <thead>
+                                    <tr>
+                                        <th>Disallowed URI Path</th>
+                                        <th>HTTP Probe Status</th>
+                                        <th>Risk Rating</th>
+                                        <th>Intelligence Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-robots-body">
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">/admin/</td>
+                                        <td>200 OK</td>
+                                        <td><span class="badge badge-danger">CRITICAL</span></td>
+                                        <td>Admin portal login entrypoint directly reachable</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">/backup/dump.sql</td>
+                                        <td>200 OK</td>
+                                        <td><span class="badge badge-danger">CRITICAL LEAK</span></td>
+                                        <td>Database backup archive publicly downloadable</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">/api/v1/internal/</td>
+                                        <td>401 Unauthorized</td>
+                                        <td><span class="badge badge-warning">HIGH</span></td>
+                                        <td>Internal microservice API schema endpoint</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">/wp-login.php</td>
+                                        <td>403 Forbidden</td>
+                                        <td><span class="badge badge-info">MEDIUM</span></td>
+                                        <td>WordPress authentication gateway</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 3.3: CORS Misconfiguration Checker -->
+                <div class="subpart-panel" id="subpanel-cors">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">CORS Misconfiguration & Origin Reflection Checker</div>
+                                <div class="card-desc">Tests web endpoints for overly permissive Cross-Origin Resource Sharing policies (Access-Control-Allow-Origin: *)</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="cors-url-input" placeholder="Enter endpoint URL to test (e.g. https://acme-corp.global/api/user/profile)">
+                            <button class="btn-primary" id="btn-test-cors">Probe CORS Policy</button>
+                        </div>
+
+                        <div class="grid-2" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">CORS Assessment Verdict</span>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: var(--accent-red); margin-top: 4px;" id="cors-verdict">CRITICAL: Permissive Origin Reflection</div>
+                                <p style="font-size: 0.74rem; color: var(--text-secondary); margin-top: 6px;" id="cors-impact">
+                                    Target reflects untrusted Origin headers with 'Access-Control-Allow-Credentials: true'. Arbitrary malicious sites can steal authenticated session cookies.
+                                </p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Observed Headers</span>
+                                <pre class="code-box" style="margin-top: 6px;" id="cors-headers-box">Access-Control-Allow-Origin: https://attacker-origin.evil.com
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST, OPTIONS</pre>
+                            </div>
+                        </div>
+
+                        <div style="font-size: 0.74rem; font-weight: 600; color: var(--accent-green); margin-bottom: 6px;">Remediation Nginx Filter:</div>
+                        <pre class="code-box"># Enforce strict origin whitelist:
+if ($http_origin ~* "^https?://(.*\.)?acme-corp\.global$") {
+    add_header "Access-Control-Allow-Origin" "$http_origin" always;
+    add_header "Access-Control-Allow-Credentials" "true" always;
+}</pre>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 3.4: CVE Vulnerability Lookup -->
+                <div class="subpart-panel" id="subpanel-cve">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">CVE Vulnerability & Exploit Database</div>
+                                <div class="card-desc">Queries software names and version strings to pull up associated Common Vulnerabilities and Exposures</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="cve-query-input" placeholder="Search software or version (e.g. Apache 2.4.49, Log4j, Sudo, OpenSSH, XZ)">
+                            <button class="btn-primary" id="btn-search-cve">Search CVEs</button>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;" id="cve-results-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================= -->
+            <!-- 4. CRYPTOGRAPHY & UTILITIES VIEW (SUB-PARTS IN RIGHT BLOCK)    -->
+            <!-- ============================================================= -->
+            <section id="category-crypto" class="category-view">
+
+                <!-- Sub-Parts Navigation in Right Block -->
+                <div class="subparts-nav" data-category="crypto">
+                    <button class="subpart-tab active-subpart" data-subpart="passwords">🔑 Password Strength</button>
+                    <button class="subpart-tab" data-subpart="hashtoken">🔏 Hash & Token (JWT)</button>
+                    <button class="subpart-tab" data-subpart="payloads">⚡ Payload Generator</button>
+                    <button class="subpart-tab" data-subpart="cidr">🖧 Subnet & CIDR</button>
+                    <button class="subpart-tab" data-subpart="regex">🔍 Regex Tester</button>
+                </div>
+
+                <!-- Sub-Part 4.1: Password Strength Checker -->
+                <div class="subpart-panel active-panel" id="subpanel-passwords">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Password Entropy & Strength Calculator</div>
+                                <div class="card-desc">Evaluates password entropy (bits) and checks vulnerability against dictionary algorithms</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="pwd-input" placeholder="Type password to evaluate security strength..." value="P@ssw0rd2026!Secure">
+                            <button class="btn-secondary" id="btn-generate-pwd">🎲 Generate Strong</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 16px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Shannon Entropy</span>
+                                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-green); margin-top: 2px;" id="pwd-entropy">78.4 Bits</div>
+                                <span class="badge badge-success" id="pwd-strength-badge">VERY STRONG</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Estimated Offline Crack Time</span>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="pwd-crack-time">124 Centuries</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);">Against 8x RTX 4090 Hashcat GPU Rig</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Character Composition</span>
+                                <div style="font-size: 0.8rem; color: var(--text-main); margin-top: 4px;" id="pwd-composition">Uppercase, Lowercase, Digits, Symbols</div>
+                                <span style="font-size: 0.72rem; color: var(--accent-green);">Length: 19 characters</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 4.2: Hash & Token Analyzer (JWT) -->
+                <div class="subpart-panel" id="subpanel-hashtoken">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Hash, Base64 & JWT Token Cryptographic Analyzer</div>
+                                <div class="card-desc">Multi-purpose cryptographic helper to compute hashes, encode/decode Base64, and parse JWT claims</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <span style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary);">Input String or JWT Token:</span>
+                            <textarea class="tool-textarea" id="token-input" style="min-height: 80px;">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwibmFtZSI6IlZhdHNhbCBTZWNPYnMiLCJyb2xlIjoiU2VjdXJpdHlBZG1pbiIsImlhdCI6MTY3MjUzMTE5MCwiZXhwIjoxNzkzMTU2ODAwfQ.kYxX...</textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;">
+                            <button class="btn-primary" id="btn-decode-jwt">Parse JWT Claims</button>
+                            <button class="btn-secondary" id="btn-b64-encode">Base64 Encode</button>
+                            <button class="btn-secondary" id="btn-b64-decode">Base64 Decode</button>
+                        </div>
+
+                        <div class="grid-2" id="jwt-output-grid">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">JWT Header (Algorithm)</span>
+                                <pre class="code-box" style="margin-top: 4px;" id="jwt-header-box">{
+  "alg": "HS256",
+  "typ": "JWT"
+}</pre>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">JWT Decoded Payload (Claims)</span>
+                                <pre class="code-box" style="margin-top: 4px;" id="jwt-payload-box">{
+  "sub": "user123",
+  "name": "Vatsal SecOps",
+  "role": "SecurityAdmin",
+  "iat": 1672531190,
+  "exp": 1793156800
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 4.3: Payload Generator / Encoder -->
+                <div class="subpart-panel" id="subpanel-payloads">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Security Payload Generator & Obfuscation Encoder</div>
+                                <div class="card-desc">Encodes strings into various formats (URL, Double URL, Hex, Unicode, Base64) for security testing</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <input type="text" class="tool-input" id="payload-raw-input" value="<script>alert('SecOps')</script>" placeholder="Enter raw payload string to encode...">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 6px;">
+                                <div>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">STANDARD URL ENCODED</span>
+                                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-main); margin-top: 2px;" id="enc-url">%3Cscript%3Ealert('SecOps')%3C/script%3E</div>
+                                </div>
+                                <button class="btn-secondary btn-copy" data-target="enc-url" style="padding: 3px 8px; font-size: 0.7rem;">Copy</button>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 6px;">
+                                <div>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">DOUBLE URL ENCODED (WAF BYPASS)</span>
+                                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-cyan); margin-top: 2px;" id="enc-double-url">%253Cscript%253Ealert('SecOps')%253C/script%253E</div>
+                                </div>
+                                <button class="btn-secondary btn-copy" data-target="enc-double-url" style="padding: 3px 8px; font-size: 0.7rem;">Copy</button>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 6px;">
+                                <div>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">HEX ESCAPED (\xNN)</span>
+                                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-main); margin-top: 2px;" id="enc-hex">\x3c\x73\x63\x72\x69\x70\x74\x3e\x61\x6c\x65\x72\x74...</div>
+                                </div>
+                                <button class="btn-secondary btn-copy" data-target="enc-hex" style="padding: 3px 8px; font-size: 0.7rem;">Copy</button>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 6px;">
+                                <div>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">HTML NUMERIC ENTITIES (&#xNN;)</span>
+                                    <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-main); margin-top: 2px;" id="enc-html">&#x3c;&#x73;&#x63;&#x72;&#x69;&#x70;&#x74;&#x3e;...</div>
+                                </div>
+                                <button class="btn-secondary btn-copy" data-target="enc-html" style="padding: 3px 8px; font-size: 0.7rem;">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 4.4: Subnet & CIDR Calculator -->
+                <div class="subpart-panel" id="subpanel-cidr">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Subnet & CIDR Range Calculator</div>
+                                <div class="card-desc">Networking calculator for computing usable IP ranges, netmasks, and broadcast addresses</div>
+                            </div>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="cidr-input" value="192.168.1.0/24" placeholder="Enter IP with CIDR mask (e.g. 192.168.1.0/24 or 10.0.0.0/16)">
+                            <button class="btn-primary" id="btn-calc-cidr">Compute Subnet</button>
+                        </div>
+
+                        <div class="grid-3" style="margin-bottom: 14px;">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Network Address (IP)</span>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); font-family: var(--font-mono);" id="cidr-net-ip">192.168.1.0</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Broadcast Address</span>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: var(--accent-cyan); font-family: var(--font-mono);" id="cidr-broad-ip">192.168.1.255</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Total Usable Hosts</span>
+                                <div style="font-size: 1.05rem; font-weight: 700; color: var(--accent-green);" id="cidr-hosts">254 Hosts</div>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Subnet Mask & Wildcard</span>
+                                <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-main); font-family: var(--font-mono); margin-top: 4px;" id="cidr-mask">Mask: 255.255.255.0 | Wildcard: 0.0.0.255</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Usable Host Range</span>
+                                <div style="font-size: 0.88rem; font-weight: 700; color: var(--accent-cyan); font-family: var(--font-mono); margin-top: 4px;" id="cidr-range">192.168.1.1 - 192.168.1.254</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Part 4.5: Regex Pattern Tester -->
+                <div class="subpart-panel" id="subpanel-regex">
+                    <div class="card">
+                        <div class="card-header-row">
+                            <div>
+                                <div class="card-heading">Regular Expression Security Pattern Tester</div>
+                                <div class="card-desc">Sandbox environment to test regular expressions against common injection signatures (SQLi, XSS)</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+                            <button class="btn-secondary regex-preset" data-rx="sqli">Preset: SQL Injection</button>
+                            <button class="btn-secondary regex-preset" data-rx="xss">Preset: XSS Probe</button>
+                            <button class="btn-secondary regex-preset" data-rx="traversal">Preset: Directory Traversal</button>
+                        </div>
+
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="regex-pattern-input" value="(\bUNION\b|\bSELECT\b|--|#|'|/\*)" placeholder="Enter Regex pattern...">
+                            <button class="btn-primary" id="btn-test-regex">Test Pattern</button>
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <span style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary);">Test String:</span>
+                            <textarea class="tool-textarea" id="regex-test-string" style="min-height: 80px;">SELECT * FROM users WHERE username = 'admin' OR '1'='1' --;</textarea>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">MATCH RESULTS:</span>
+                                <span class="badge badge-danger" id="regex-match-count">3 Matches Found</span>
+                            </div>
+                            <div id="regex-highlight-box" style="font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6; color: var(--text-main);"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-notice">Action completed successfully</div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
