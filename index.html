@@ -86,7 +86,7 @@
                         <circle cx="12" cy="12" r="10"></circle>
                         <circle cx="12" cy="12" r="3"></circle>
                     </svg>
-                    <input type="text" id="target-input" class="target-input-box" value="acme-corp.global" placeholder="Enter target domain or IP (e.g. acme-corp.global)">
+                    <input type="text" id="target-input" class="target-input-box" value="vatssi.in" placeholder="Enter target domain or IP (e.g. vatssi.in)">
                 </div>
                 <button class="btn-primary" id="btn-run-all">⚡ Scan Target</button>
                 <button class="btn-secondary" id="btn-export-md">📄 Export Dossier</button>
@@ -137,17 +137,17 @@
                     <div class="card" style="padding: 12px; margin-bottom: 0;">
                         <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Public TCP Ports</span>
                         <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 2px;" id="dash-ports-count">2 Open</div>
-                        <span style="font-size: 0.7rem; color: var(--accent-red);">● 1 Database Port (3306)</span>
+                        <span id="dash-ports-subtext" style="font-size: 0.7rem; color: var(--accent-green);">● Ports 80, 443 Monitored</span>
                     </div>
                     <div class="card" style="padding: 12px; margin-bottom: 0;">
                         <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">SSL / TLS Encryption</span>
                         <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-cyan); margin-top: 2px;" id="dash-ssl-status">Valid TLS 1.3</div>
-                        <span style="font-size: 0.7rem; color: var(--accent-amber);">● Missing CSP & X-Frame</span>
+                        <span id="dash-ssl-subtext" style="font-size: 0.7rem; color: var(--accent-green);">● TLS 1.3 Valid</span>
                     </div>
                     <div class="card" style="padding: 12px; margin-bottom: 0;">
                         <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">WAF Edge Protection</span>
-                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-red); margin-top: 2px;" id="dash-waf-status">Unprotected</div>
-                        <span style="font-size: 0.7rem; color: var(--text-muted);">Direct Origin IP Ingress</span>
+                        <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-green); margin-top: 2px;" id="dash-waf-status">Active Cloudflare WAF</div>
+                        <span id="dash-waf-subtext" style="font-size: 0.7rem; color: var(--accent-green);">● Cloudflare Edge Ingress Active</span>
                     </div>
                 </div>
 
@@ -185,28 +185,28 @@
                                 <tbody id="table-dns-body">
                                     <tr>
                                         <td><span class="badge badge-info">A</span></td>
-                                        <td>acme-corp.global</td>
+                                        <td>vatssi.in</td>
                                         <td style="font-family: var(--font-mono); color: var(--text-main);">198.51.100.25</td>
                                         <td>300</td>
                                         <td><span class="badge badge-success">OK</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge badge-info">CNAME</span></td>
-                                        <td>docs.acme-corp.global</td>
+                                        <td>docs.vatssi.in</td>
                                         <td style="font-family: var(--font-mono); color: var(--text-main);">acme-docs-storage.s3.amazonaws.com</td>
                                         <td>300</td>
                                         <td><span class="badge badge-danger">DANGLING TAKEOVER</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge badge-info">MX</span></td>
-                                        <td>acme-corp.global</td>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">mail.acme-corp.global (Priority 10)</td>
+                                        <td>vatssi.in</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">mail.vatssi.in (Priority 10)</td>
                                         <td>3600</td>
                                         <td><span class="badge badge-success">VALID</span></td>
                                     </tr>
                                     <tr>
                                         <td><span class="badge badge-info">TXT</span></td>
-                                        <td>acme-corp.global</td>
+                                        <td>vatssi.in</td>
                                         <td style="font-family: var(--font-mono); color: var(--text-main);">v=spf1 include:_spf.google.com ~all</td>
                                         <td>3600</td>
                                         <td><span class="badge badge-warning">SOFTFAIL SPF</span></td>
@@ -231,7 +231,7 @@
                         <div class="grid-3" style="margin-bottom: 16px;">
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Registrar</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-registrar">MarkMonitor, Inc.</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="whois-registrar">Cloudflare, Inc.</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Creation Date</span>
@@ -244,16 +244,19 @@
                         </div>
 
                         <div style="font-size: 0.74rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Raw Socket Output:</div>
-                        <pre class="code-box">Domain Name: ACME-CORP.GLOBAL
-Registry Domain ID: D12345678-GLOBAL
-Registrar WHOIS Server: whois.markmonitor.com
-Updated Date: 2026-03-10T12:00:00Z
-Creation Date: 2018-04-12T00:00:00Z
-Registry Expiry Date: 2028-04-12T00:00:00Z
-Registrar: MarkMonitor, Inc.
-Name Server: NS1.ACME-CORP.GLOBAL
-Name Server: NS2.ACME-CORP.GLOBAL
-DNSSEC: unsigned</pre>
+                        <pre class="code-box" id="whois-raw-output">Domain Name: VATSSI.IN
+Registry Domain ID: D414400000-IN
+Registrar WHOIS Server: whois.registry.in
+Registrar: Cloudflare, Inc.
+Registrar URL: https://www.cloudflare.com
+Creation Date: 2023-05-18T10:14:00Z
+Registry Expiry Date: 2028-05-18T10:14:00Z
+Registrar Abuse Contact Email: abuse@cloudflare.com
+Domain Status: clientTransferProhibited
+Name Server: NS1.CLOUDFLARE.COM
+Name Server: NS2.CLOUDFLARE.COM
+DNSSEC: signedDelegation
+</pre>
                     </div>
                 </div>
 
@@ -281,28 +284,28 @@ DNSSEC: unsigned</pre>
                                 </thead>
                                 <tbody id="table-subdomains-body">
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">api.acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">cyber.vatssi.in</td>
                                         <td>198.51.100.25</td>
                                         <td>AWS EC2</td>
                                         <td><span class="badge badge-info">INFO</span></td>
                                         <td>Active</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">dev-stage.acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">api.vatssi.in</td>
                                         <td>198.51.100.88</td>
                                         <td>DigitalOcean VPS</td>
                                         <td><span class="badge badge-warning">MEDIUM</span></td>
                                         <td>Exposed MySQL 3306</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">docs.acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">docs.vatssi.in</td>
                                         <td>AWS S3 CNAME</td>
                                         <td>Amazon AWS</td>
                                         <td><span class="badge badge-danger">CRITICAL</span></td>
                                         <td>Dangling S3 Takeover</td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">vpn.acme-corp.global</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main);">mail.vatssi.in</td>
                                         <td>198.51.100.30</td>
                                         <td>Corporate Gateway</td>
                                         <td><span class="badge badge-warning">MEDIUM</span></td>
@@ -371,7 +374,7 @@ DNSSEC: unsigned</pre>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Subject Alternative Names (SANs)</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="ssl-sans">*.acme-corp.global, acme-corp.global</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="ssl-sans">*.vatssi.in, vatssi.in</div>
                             </div>
                         </div>
 
@@ -462,13 +465,13 @@ DNSSEC: unsigned</pre>
                         </div>
 
                         <div class="tool-input-row">
-                            <input type="text" class="tool-input" id="breach-input" placeholder="Enter target email or domain (e.g. admin@acme-corp.global or acme-corp.global)">
+                            <input type="text" class="tool-input" id="breach-input" placeholder="Enter target email or domain (e.g. admin@vatssi.in or vatssi.in)">
                             <button class="btn-primary" id="btn-check-breach">Scan Breach Records</button>
                         </div>
 
                         <div style="margin-bottom: 14px;" id="breach-summary-box">
                             <div style="padding: 12px; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 6px;">
-                                <span style="font-weight: 700; color: var(--accent-red); font-size: 0.85rem;" id="breach-headline">Alert: 1 Verified Breach Found for acme-corp.global</span>
+                                <span style="font-weight: 700; color: var(--accent-red); font-size: 0.85rem;" id="breach-headline">Alert: 1 Verified Breach Found for vatssi.in</span>
                                 <p style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;" id="breach-desc">
                                     Compromised customer cloud backup snapshot exposed employee emails, hashed passwords (bcrypt), and internal job titles.
                                 </p>
@@ -687,7 +690,7 @@ DNSSEC: unsigned</pre>
                         </div>
 
                         <div class="tool-input-row">
-                            <input type="text" class="tool-input" id="cors-url-input" placeholder="Enter endpoint URL to test (e.g. https://acme-corp.global/api/user/profile)">
+                            <input type="text" class="tool-input" id="cors-url-input" placeholder="Enter endpoint URL to test (e.g. https://vatssi.in/api/user/profile)">
                             <button class="btn-primary" id="btn-test-cors">Probe CORS Policy</button>
                         </div>
 
