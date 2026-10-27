@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Security: Protecting the Digital World | AegisGraph</title>
-    <link rel="stylesheet" href="css/style.css?v=2.7">
+    <link rel="stylesheet" href="css/style.css?v=3.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -288,29 +288,29 @@ DNSSEC: unsigned</pre>
                                 <tbody id="table-subdomains-body">
                                     <tr>
                                         <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">cyber.vatssi.in</td>
-                                        <td style="font-family: var(--font-mono);">Cloudflare Anycast (104.21.55.2)</td>
+                                        <td style="font-family: var(--font-mono);">172.67.157.34</td>
                                         <td>Cloudflare Workers & Pages</td>
                                         <td><span class="badge badge-success">SECURE</span></td>
                                         <td><span style="color: var(--accent-green); font-weight: 600;">Live Active (HTTP 200)</span></td>
                                     </tr>
                                     <tr>
                                         <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">audit.vatssi.in</td>
-                                        <td style="font-family: var(--font-mono);">Cloudflare Anycast (104.21.55.2)</td>
+                                        <td style="font-family: var(--font-mono);">104.21.42.56</td>
                                         <td>Cloudflare Workers & Pages</td>
                                         <td><span class="badge badge-success">SECURE</span></td>
                                         <td><span style="color: var(--accent-green); font-weight: 600;">Live Active (HTTP 200)</span></td>
                                     </tr>
                                     <tr>
                                         <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">www.vatssi.in</td>
-                                        <td style="font-family: var(--font-mono);">Cloudflare Edge CDN</td>
-                                        <td>Cloudflare, Inc.</td>
+                                        <td style="font-family: var(--font-mono);">104.21.42.56</td>
+                                        <td>Cloudflare Edge CDN</td>
                                         <td><span class="badge badge-success">SECURE</span></td>
                                         <td><span style="color: var(--accent-green); font-weight: 600;">Active Route</span></td>
                                     </tr>
                                     <tr>
                                         <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">vatssi.in</td>
-                                        <td style="font-family: var(--font-mono);">Cloudflare Apex Edge</td>
-                                        <td>Cloudflare, Inc.</td>
+                                        <td style="font-family: var(--font-mono);">172.67.157.34</td>
+                                        <td>Cloudflare Apex Edge</td>
                                         <td><span class="badge badge-success">SECURE</span></td>
                                         <td><span style="color: var(--accent-green); font-weight: 600;">Apex Authoritative</span></td>
                                     </tr>
@@ -331,26 +331,31 @@ DNSSEC: unsigned</pre>
                         </div>
 
                         <div class="tool-input-row">
-                            <input type="text" class="tool-input" id="ipgeo-input" placeholder="Enter IP or Hostname (e.g. 198.51.100.25 or google.com)">
+                            <input type="text" class="tool-input" id="ipgeo-input" value="172.67.157.34" placeholder="Enter IP or Hostname (e.g. 172.67.157.34 or vatssi.in)">
                             <button class="btn-primary" id="btn-trace-ipgeo">Trace Geolocation</button>
                         </div>
 
                         <div class="grid-3" style="margin-bottom: 16px;">
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Physical Location</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="geo-location">Ashburn, Virginia, United States 🇺🇸</div>
-                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-coords">Lat: 39.0438, Long: -77.4874</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="geo-location">San Francisco, California, United States 🌐</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-coords">Lat: 37.7749, Long: -122.4194 (Cloudflare Anycast)</span>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Autonomous System Number (ASN)</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="geo-asn">AS16509 AMAZON-02</div>
-                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-isp">Amazon Technologies Inc.</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="geo-asn">AS13335 (Cloudflare, Inc.)</div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);" id="geo-isp">Cloudflare Anycast Backbone</span>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Proxy / Tor / VPN Detection</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="geo-proxy">Direct Datacenter IP</div>
-                                <span class="badge badge-success" style="margin-top: 4px;">NO TOR EXIT DETECTED</span>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="geo-proxy">Cloudflare Edge Proxy (Shields Origin)</div>
+                                <span class="badge badge-success" style="margin-top: 4px;">ACTIVE EDGE INGRESS</span>
                             </div>
+                        </div>
+
+                        <div style="font-size: 0.74rem; color: var(--text-secondary); background: rgba(56, 189, 248, 0.05); padding: 10px 14px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.15); display: flex; align-items: center; gap: 8px;">
+                            <span>🛡️</span>
+                            <span><strong>Edge Protection Active:</strong> vatssi.in is proxied through Cloudflare Anycast CDN. The public IP (172.67.157.34) geolocates to Cloudflare's San Francisco edge backbone to mask and shield the actual physical origin server.</span>
                         </div>
                     </div>
                 </div>
@@ -369,15 +374,15 @@ DNSSEC: unsigned</pre>
                         <div class="grid-3" style="margin-bottom: 16px;">
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Certificate Authority (Issuer)</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="ssl-issuer">Let's Encrypt Authority X3</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-top: 4px;" id="ssl-issuer">Google Trust Services (Cloudflare Edge CA)</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Days Until Expiration</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="ssl-days">84 Days Remaining</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-green); margin-top: 4px;" id="ssl-days">88 Days Remaining (Auto-Renewing)</div>
                             </div>
                             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px;">
                                 <span style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;">Subject Alternative Names (SANs)</span>
-                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="ssl-sans">*.vatssi.in, vatssi.in</div>
+                                <div style="font-size: 0.95rem; font-weight: 700; color: var(--accent-cyan); margin-top: 4px;" id="ssl-sans">vatssi.in, cyber.vatssi.in, audit.vatssi.in</div>
                             </div>
                         </div>
 
@@ -971,6 +976,6 @@ if ($http_origin ~* "^https?://(.*\.)?acme-corp\.global$") {
     <!-- Toast Notification -->
     <div id="toast" class="toast-notice">Action completed successfully</div>
 
-    <script src="js/app.js?v=2.7"></script>
+    <script src="js/app.js?v=3.0"></script>
 </body>
 </html>
