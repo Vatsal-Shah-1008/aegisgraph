@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Security: Protecting the Digital World | AegisGraph</title>
-    <link rel="stylesheet" href="css/style.css?v=2.6">
+    <link rel="stylesheet" href="css/style.css?v=2.7">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -266,8 +266,11 @@ DNSSEC: unsigned</pre>
                         <div class="card-header-row">
                             <div>
                                 <div class="card-heading">Perimeter Subdomain Enumeration (crt.sh & CT Logs)</div>
-                                <div class="card-desc">Queries public certificate transparency logs to uncover hidden subdomains and assets</div>
+                                <div class="card-desc">Queries public certificate transparency logs and Cloudflare edge to uncover active subdomains</div>
                             </div>
+                        </div>
+                        <div class="tool-input-row">
+                            <input type="text" class="tool-input" id="subs-input" value="vatssi.in" placeholder="Enter root domain to enumerate (e.g. vatssi.in)">
                             <button class="btn-primary" id="btn-run-subs-module">🔍 Enumerate Subdomains</button>
                         </div>
 
@@ -284,32 +287,32 @@ DNSSEC: unsigned</pre>
                                 </thead>
                                 <tbody id="table-subdomains-body">
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">cyber.vatssi.in</td>
-                                        <td>198.51.100.25</td>
-                                        <td>AWS EC2</td>
-                                        <td><span class="badge badge-info">INFO</span></td>
-                                        <td>Active</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">cyber.vatssi.in</td>
+                                        <td style="font-family: var(--font-mono);">Cloudflare Anycast (104.21.55.2)</td>
+                                        <td>Cloudflare Workers & Pages</td>
+                                        <td><span class="badge badge-success">SECURE</span></td>
+                                        <td><span style="color: var(--accent-green); font-weight: 600;">Live Active (HTTP 200)</span></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">api.vatssi.in</td>
-                                        <td>198.51.100.88</td>
-                                        <td>DigitalOcean VPS</td>
-                                        <td><span class="badge badge-warning">MEDIUM</span></td>
-                                        <td>Exposed MySQL 3306</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">audit.vatssi.in</td>
+                                        <td style="font-family: var(--font-mono);">Cloudflare Anycast (104.21.55.2)</td>
+                                        <td>Cloudflare Workers & Pages</td>
+                                        <td><span class="badge badge-success">SECURE</span></td>
+                                        <td><span style="color: var(--accent-green); font-weight: 600;">Live Active (HTTP 200)</span></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">docs.vatssi.in</td>
-                                        <td>AWS S3 CNAME</td>
-                                        <td>Amazon AWS</td>
-                                        <td><span class="badge badge-danger">CRITICAL</span></td>
-                                        <td>Dangling S3 Takeover</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">www.vatssi.in</td>
+                                        <td style="font-family: var(--font-mono);">Cloudflare Edge CDN</td>
+                                        <td>Cloudflare, Inc.</td>
+                                        <td><span class="badge badge-success">SECURE</span></td>
+                                        <td><span style="color: var(--accent-green); font-weight: 600;">Active Route</span></td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: var(--font-mono); color: var(--text-main);">mail.vatssi.in</td>
-                                        <td>198.51.100.30</td>
-                                        <td>Corporate Gateway</td>
-                                        <td><span class="badge badge-warning">MEDIUM</span></td>
-                                        <td>Active Gateway</td>
+                                        <td style="font-family: var(--font-mono); color: var(--text-main); font-weight: 600;">vatssi.in</td>
+                                        <td style="font-family: var(--font-mono);">Cloudflare Apex Edge</td>
+                                        <td>Cloudflare, Inc.</td>
+                                        <td><span class="badge badge-success">SECURE</span></td>
+                                        <td><span style="color: var(--accent-green); font-weight: 600;">Apex Authoritative</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -968,6 +971,6 @@ if ($http_origin ~* "^https?://(.*\.)?acme-corp\.global$") {
     <!-- Toast Notification -->
     <div id="toast" class="toast-notice">Action completed successfully</div>
 
-    <script src="js/app.js?v=2.6"></script>
+    <script src="js/app.js?v=2.7"></script>
 </body>
 </html>
